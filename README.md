@@ -13,7 +13,7 @@ A lightweight and efficient c++11 library for segmentation/image manipulation. T
 * A function for loading MNIST dataset.
 
 ## Installation
-Get [CImg](dtschump/CImg) library first.
+Get [CImg](https://github.com/dtschump/CImg) library first.
 
 Cd to `libimagesegmentation` directory and in the terminal run
 
