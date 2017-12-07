@@ -174,7 +174,10 @@ namespace LibImageSegmentation
       return(out);
     }
   };
-  
+  ///Type alias for RGB color.
+  using RGBColor=Color<DefaultTypes::int_type,3>;
+  ///Type alias for RGB color.
+  using ColorRGB=RGBColor;
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
