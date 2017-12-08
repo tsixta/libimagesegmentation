@@ -1,5 +1,5 @@
-#ifndef IMAGE_SEGMENTATION_MAIN_H
-#define IMAGE_SEGMENTATION_MAIN_H
+#ifndef LIB_IMAGE_SEGMENTATION_MAIN_H
+#define LIB_IMAGE_SEGMENTATION_MAIN_H
 #include <iostream>
 #include <fstream>
 #include <sstream>

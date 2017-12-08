@@ -1,5 +1,5 @@
-#ifndef IMAGE_SEGMENTATION_PIXEL_H
-#define IMAGE_SEGMENTATION_PIXEL_H
+#ifndef LIB_IMAGE_SEGMENTATION_PIXEL_H
+#define LIB_IMAGE_SEGMENTATION_PIXEL_H
 #include <iostream>
 #include <cmath>
 #include <tuple>

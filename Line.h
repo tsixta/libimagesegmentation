@@ -1,5 +1,5 @@
-#ifndef IMAGE_SEGMENTATION_LINE_H
-#define IMAGE_SEGMENTATION_LINE_H
+#ifndef LIB_IMAGE_SEGMENTATION_LINE_H
+#define LIB_IMAGE_SEGMENTATION_LINE_H
 #include "Pixel.h"
 #include <iterator>
 namespace LibImageSegmentation
