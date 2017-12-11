@@ -63,24 +63,24 @@ namespace LibImageSegmentation
      */
     bool operator!=(const Pixel<T> &p2) const{return(!((*this)==p2));}
     template <class S> friend Pixel<T> operator+(const Pixel<T> &lhs,const Pixel<S> &rhs){return(Pixel<T>(lhs.x+rhs.x,lhs.y+rhs.y));}
-    template <class S> friend Pixel<T> operator+(const Pixel<T> &lhs,const S &rhs){return(Pixel<T>(lhs.x+rhs,lhs.y+rhs));}
-    template <class S> friend Pixel<T> operator+(const S &lhs,const Pixel<T> &rhs){return(Pixel<T>(lhs+rhs.x,lhs+rhs.y));}
+    friend Pixel<T> operator+(const Pixel<T> &lhs,const T &rhs){return(Pixel<T>(lhs.x+rhs,lhs.y+rhs));}
+    friend Pixel<T> operator+(const T &lhs,const Pixel<T> &rhs){return(Pixel<T>(lhs+rhs.x,lhs+rhs.y));}
     template <class S> Pixel<T>& operator+=(const Pixel<S> &rhs) {this->x+=rhs.x;this->y+=rhs.y;return(*this);}
-    template <class S> Pixel<T>& operator+=(const S &rhs) {this->x+=rhs;this->y+=rhs;return(*this);}
+    Pixel<T>& operator+=(const T &rhs) {this->x+=rhs;this->y+=rhs;return(*this);}
     template <class S> friend Pixel<T> operator-(const Pixel<T> &lhs,const Pixel<S> &rhs){return(Pixel<T>(lhs.x-rhs.x,lhs.y-rhs.y));}
-    template <class S> friend Pixel<T> operator-(const Pixel<T> &lhs,const S &rhs){return(Pixel<T>(lhs.x-rhs,lhs.y-rhs));}
-    template <class S> friend Pixel<T> operator-(const S &lhs,const Pixel<T> &rhs){return(Pixel<T>(lhs-rhs.x,lhs-rhs.y));}
+    friend Pixel<T> operator-(const Pixel<T> &lhs,const T &rhs){return(Pixel<T>(lhs.x-rhs,lhs.y-rhs));}
+    friend Pixel<T> operator-(const T &lhs,const Pixel<T> &rhs){return(Pixel<T>(lhs-rhs.x,lhs-rhs.y));}
     template <class S> Pixel<T>& operator-=(const Pixel<S> &rhs) {this->x-=rhs.x;this->y-=rhs.y;return(*this);}
-    template <class S> Pixel<T>& operator-=(const S &rhs) {this->x-=rhs;this->y-=rhs;return(*this);}
+    Pixel<T>& operator-=(const T &rhs) {this->x-=rhs;this->y-=rhs;return(*this);}
     Pixel<T> operator-(){return(Pixel<T>(-this->x,-this->y));}
-    template <class S> friend Pixel<T> operator*(const S &c,const Pixel<T> &rhs){return(Pixel<T>(c*rhs.x,c*rhs.y));}
-    template <class S> friend Pixel<T> operator*(const Pixel<T> &lhs,const S &c){return(c*lhs);}
+    friend Pixel<T> operator*(const T &c,const Pixel<T> &rhs){return(Pixel<T>(c*rhs.x,c*rhs.y));}
+    friend Pixel<T> operator*(const Pixel<T> &lhs,const T &c){return(c*lhs);}
     /** Dot product of two pixels (2D vectors).
      */    
     template <class S> friend double operator*(const Pixel<T> &lhs,const Pixel<S> &rhs){return(lhs.x*rhs.x+lhs.y*rhs.y);}
     template <class S> Pixel<T>& operator*=(const S &rhs) {this->x*=rhs;this->y*=rhs;return(*this);}
     template <class S> friend Pixel<T> operator/(const Pixel<T> &lhs,const S &c){return(Pixel<T>(lhs.x/c,lhs.y/c));}
-    template <class S> Pixel<T>& operator/=(S rhs) {this->x/=rhs;this->y/=rhs;return(*this);}
+    template <class S> Pixel<T>& operator/=(const S &rhs) {this->x/=rhs;this->y/=rhs;return(*this);}
     friend std::ostream& operator<<(std::ostream& os, const Pixel& p){os << "[" << p.x << ", " << p.y << "]";return os;}
   };
 
