@@ -344,7 +344,14 @@ namespace LibImageSegmentation
      *  Creates a segmentation or image of size \[width,height\].
      */    
     ImageSegmentation(int width,int height,Verbose verbose=Verbose::Normal) : ImageSegmentation(verbose){this->reallocate(width,height);}
+    /** Copy Constructor.
+     *  Allocates a segmentation or image of size \[img2.width,img2.height\] and copies data from img2.
+     */    
     ImageSegmentation(const ImageSegmentation<T,N> &img2){this->verbose=img2.verbose;this->copy_data(img2);}
+    /** Assignment operator.
+     *  Reallocates a segmentation or image of size \[img2.width,img2.height\] and copies data from img2.
+     */    
+    ImageSegmentation<T,N>& operator=(const ImageSegmentation<T,N> &img2){this->release();this->verbose=img2.verbose;this->copy_data(img2);return(*this);}
     ~ImageSegmentation() {this->release();}
     
     //-------------------------------------------------------------------------
@@ -967,6 +974,49 @@ namespace LibImageSegmentation
     /** Flood fill algorithm.
      *  @param startZ Starting point.
      *  @param targetLabel If overwriteImage==true the color of flooded pixels will be set to _targetLabel_.
+     *  @param boundingBoxZ1 Top-left corner of a rectangle that bounds pixels that might be flooded.
+     *  @param boundingBoxZ2 Bottom-right corner of a rectangle that bounds pixels that might be flooded.
+     *  @param resPixels std::vector of flooded pixels.
+     *  @param overwriteImage Determines, whether set the color of flooded pixels to _targetLabel_.
+     *  @param eightNeighborhood If true, the flooding considers 8-neigborhood of each pixel, false means 4-neigborhood.
+     */  
+    void flood_fill(const Pixel<int> &startZ,
+                    const T &targetLabel,
+                    const Pixel<int> &boundingBoxZ1,const Pixel<int> &boundingBoxZ2,
+                    std::vector<Pixel<int> > &resPixels,
+                    bool overwriteImage=true,
+                    bool eightNeighborhood=false)
+    {
+      this->flood_fill(startZ.x,startZ.y,targetLabel,boundingBoxZ1,boundingBoxZ2,resPixels,overwriteImage,eightNeighborhood);
+    }
+    //-------------------------------------------------------------------------
+    /** Flood fill algorithm.
+     *  @param startX X coordinate of the starting point.
+     *  @param startY Y coordinate of the starting point.
+     *  @param targetLabel If overwriteImage==true the color of flooded pixels will be set to _targetLabel_.
+     *  @param boundingBoxZ1 Top-left corner of a rectangle that bounds pixels that might be flooded.
+     *  @param boundingBoxZ2 Bottom-right corner of a rectangle that bounds pixels that might be flooded.
+     *  @param resPixels std::vector of flooded pixels.
+     *  @param overwriteImage Determines, whether set the color of flooded pixels to _targetLabel_.
+     *  @param eightNeighborhood If true, the flooding considers 8-neigborhood of each pixel, false means 4-neigborhood.
+     */ 
+    void flood_fill(int startX,int startY,
+                    const T &targetLabel,
+                    const Pixel<int> &boundingBoxZ1,const Pixel<int> &boundingBoxZ2,
+                    std::vector<Pixel<int> > &resPixels,
+                    bool overwriteImage=true,
+                    bool eightNeighborhood=false)
+    {
+      auto equalsFunction=[](const T &c1,const T &c2){return(c1==c2);};
+      this->flood_fill(startX,startY,targetLabel,boundingBoxZ1,boundingBoxZ2,equalsFunction,resPixels,overwriteImage,eightNeighborhood);
+    }
+    
+    
+    
+    //-------------------------------------------------------------------------
+    /** Flood fill algorithm.
+     *  @param startZ Starting point.
+     *  @param targetLabel If overwriteImage==true the color of flooded pixels will be set to _targetLabel_.
      *  @param equalsFunction A callable with two arguments of type const ImageSegmentation<T,N>::color_type &, 
      *         that returns true if its parameters are considered equal and false otherwise.
      *  @param resPixels std::vector of flooded pixels.
@@ -1081,8 +1131,7 @@ namespace LibImageSegmentation
       }      
  
     }
-    
-    
+
     //-------------------------------------------------------------------------
     /*GrayScale: (optional: uniform}
       load all channels, average
