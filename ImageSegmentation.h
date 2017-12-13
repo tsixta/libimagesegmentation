@@ -921,7 +921,7 @@ namespace LibImageSegmentation
             for(dy=startDY;dy<=endDY;dy++)
             {
               imageX=x-(dx-filterCenterX);
-              imageX=y-(dy-filterCenterY);
+              imageY=y-(dy-filterCenterY);
               tmp.data[x][y]+=this->data[imageX][imageY]*filter.data[dx][dy];
               sumInside+=filter.data[dx][dy];
             }
